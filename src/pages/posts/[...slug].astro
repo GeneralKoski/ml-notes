@@ -1,0 +1,46 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => import.meta.env.DEV || !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const dateFormat = new Intl.DateTimeFormat('en-GB', {
+  year: 'numeric',
+  month: 'short',
+  day: '2-digit',
+});
+---
+
+<BaseLayout title={post.data.title} description={post.data.description} ogType="article">
+  <h1>
+    {post.data.title}
+    {post.data.draft && <span class="draft-badge">draft</span>}
+  </h1>
+  <p class="meta">{dateFormat.format(post.data.date)}</p>
+  {
+    post.data.tags.length > 0 && (
+      <ul class="tags">
+        {post.data.tags.map((tag) => (
+          <li>{tag}</li>
+        ))}
+      </ul>
+    )
+  }
+  {
+    post.data.repo && (
+      <p class="small muted">
+        Repository: <code>{post.data.repo}</code>
+        {post.data.commit && <> at commit <code>{post.data.commit}</code></>}
+      </p>
+    )
+  }
+  <div class="post-body">
+    <Content />
+  </div>
+</BaseLayout>

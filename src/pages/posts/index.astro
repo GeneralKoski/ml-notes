@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('posts', ({ data }) => import.meta.env.DEV || !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const dateFormat = new Intl.DateTimeFormat('en-GB', {
+  year: 'numeric',
+  month: 'short',
+  day: '2-digit',
+});
+---
+
+<BaseLayout
+  title="Posts"
+  description="Every post in the ml-notes path: what I wanted to know, how I measured it, and what did not work."
+>
+  <h1>Posts</h1>
+  <p class="muted">
+    One post per project. Numbers before opinions, and every post links the repository and the
+    exact commit the results were produced on.
+  </p>
+  {posts.length === 0 && <p>No posts published yet.</p>}
+  <ul class="post-list">
+    {
+      posts.map((post) => (
+        <li>
+          <h2>
+            <a href={`/posts/${post.id}/`}>{post.data.title}</a>
+            {post.data.draft && <span class="draft-badge">draft</span>}
+          </h2>
+          <p class="meta">{dateFormat.format(post.data.date)}</p>
+          <p>{post.data.description}</p>
+          {post.data.tags.length > 0 && (
+            <ul class="tags">
+              {post.data.tags.map((tag) => (
+                <li>{tag}</li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

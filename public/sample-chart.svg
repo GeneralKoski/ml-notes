@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 280" width="640" height="280" role="img" aria-label="Placeholder bar chart used to check image styling">
+  <rect width="640" height="280" fill="#ffffff"/>
+  <g stroke="#dcdcd6" stroke-width="1">
+    <line x1="70" y1="30" x2="70" y2="230"/>
+    <line x1="70" y1="230" x2="610" y2="230"/>
+  </g>
+  <g fill="#0b5cad">
+    <rect x="110" y="70" width="70" height="160"/>
+    <rect x="230" y="110" width="70" height="120"/>
+    <rect x="350" y="150" width="70" height="80"/>
+    <rect x="470" y="175" width="70" height="55"/>
+  </g>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#5c5c5c" text-anchor="middle">
+    <text x="145" y="252">fp32</text>
+    <text x="265" y="252">fp16</text>
+    <text x="385" y="252">int8</text>
+    <text x="505" y="252">int4</text>
+  </g>
+  <text x="70" y="20" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#5c5c5c">placeholder - not real data</text>
+</svg>
