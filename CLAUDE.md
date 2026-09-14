@@ -23,16 +23,20 @@ Sito statico piu indice dei progetti. Non contiene codice di machine learning: s
 | 8 | `rl-from-scratch` | DQN, PPO, SAC da zero piu seed | da fare |
 | - | `mlkit` | Utility condivise, nasce al bisogno | - |
 
-**Aggiornare lo stato in questa tabella e in README.md è parte della chiusura di ogni progetto.**
+**Aggiornare lo stato in questa tabella e in README.md è parte della chiusura di ogni progetto.** La stessa tabella è pubblicata sul sito e i suoi dati vivono in `src/data/projects.ts`: le tre copie vanno tenute allineate.
 
 L'ordine non è rigido dopo il 2. La regola è alternare un progetto GPU-bound e uno CPU-bound, mai due GPU insieme.
+
+Macchine: i progetti che toccano la GPU stanno sul fisso (RTX 3060), il resto gira anche su Mac. Niente percorsi locali o ambienti virtuali versionati, altrimenti cambiare postazione diventa un conflitto.
 
 ## Quando si apre un progetto nuovo
 
 1. Verificare che il precedente sia chiuso: codice fermo, post pubblicato, repo resa pubblica, tabella aggiornata.
-2. Creare la repo con il nome esatto della tabella, minuscolo e con trattini.
+2. Creare la repo con il nome esatto della tabella, minuscolo e con trattini, privata.
 3. Copiare `CLAUDE.template.md` nella nuova repo come `CLAUDE.md` e compilarne le sezioni.
-4. Scrivere il README con obiettivo, metrica e baseline **prima** di scrivere codice. Se non si sa cosa si misura, il progetto non è pronto per partire.
+4. Scrivere il README con domanda, metrica e baseline **prima** di scrivere codice. Se non si sa cosa si misura, il progetto non è pronto per partire.
+
+La prima sessione di un progetto nuovo non produce codice, produce la definizione di cosa si misura.
 
 ## Convenzioni tecniche condivise
 
@@ -47,48 +51,68 @@ Se una convenzione cambia, si cambia qui e si annota la data. Non si riscrivono 
 
 ## Come scrivere un post
 
+I post del sito sono **in inglese**. Questo file e le istruzioni interne restano in italiano.
+
 Struttura fissa:
 
-1. **Problema.** Cosa volevo sapere, in due frasi.
-2. **Metodo.** Setup, hardware, cosa è stato tenuto fisso, cosa variato, quante ripetizioni.
-3. **Risultati.** Tabelle e grafici prima del testo. Sempre con varianza, mai medie nude.
-4. **Cosa non ha funzionato.** Obbligatorio. Un post senza questa sezione è marketing.
-5. **Cosa rifarei.** Dove finiscono le idee venute troppo tardi.
+1. **Problem.** Cosa volevo sapere, in due frasi.
+2. **Method.** Setup, hardware, cosa è stato tenuto fisso, cosa variato, quante ripetizioni.
+3. **Results.** Tabelle e grafici prima del testo. Sempre con varianza, mai medie nude.
+4. **What did not work.** Obbligatorio. Un post senza questa sezione è marketing.
+5. **What I would do differently.** Dove finiscono le idee venute troppo tardi.
 
 Regole di scrittura:
 
-- Italiano. In inglese solo le nomenclature tecniche.
-- Ogni acronimo o termine non ovvio va esteso tra parentesi al primo uso, anche se informatico. Esempio: `PQ (Product Quantization)`, `CTC (Connectionist Temporal Classification)`.
-- Diretto, niente preamboli e niente riempitivi. Se una frase si può togliere senza perdere significato, va tolta.
+- Inglese tecnico asciutto. Frasi corte, niente preamboli, niente riempitivi. Se una frase si può togliere senza perdere significato, va tolta.
+- Ogni acronimo non ovvio va esteso tra parentesi al primo uso, anche se informatico. Esempio: `PQ (Product Quantization)`, `CTC (Connectionist Temporal Classification)`.
 - **Mai em dash (`—`, U+2014) ne en dash (`–`, U+2013). Solo il trattino normale `-` (U+002D).** Vale anche per i file generati da script: dopo la generazione, verificare il testo estratto e non solo il sorgente.
 - Numeri sempre accompagnati dall'hardware su cui sono stati ottenuti.
 - Ogni post linka la repo e il commit esatto dei risultati.
 
 ## Bozze
 
-Le bozze non stanno in `main`: questa repo è pubblica. Branch `draft/<slug>` oppure cartella ignorata da git. Un post a metà con numeri sbagliati indicizzato dai motori di ricerca è peggio di nessun post.
+Un post non finito ha `draft: true` nel frontmatter: resta visibile in `npm run dev` e non viene buildato in produzione. Non serve un branch separato.
+
+Il flag passa a `false` solo quando il post è pronto per uscire. Un post a metà con numeri sbagliati indicizzato dai motori di ricerca è peggio di nessun post, quindi il default è `true` e va tolto esplicitamente.
+
+Il filtro sui draft va riverificato a mano dopo ogni modifica alle pagine indice: è la cosa che si rompe piu facilmente tra dev e build di produzione.
 
 ## Struttura
 
-Generatore statico: Astro.
-
 ```
-src/content/posts/   post pubblicati (markdown, collection "posts")
-src/pages/           index dei progetti, indice post, pagina post, rss.xml
-src/layouts/         BaseLayout (head, header, footer)
-src/styles/          global.css
-data/<progetto>/     risultati grezzi (jsonl, csv)
+src/content/posts/   post in Markdown (Content Collections)
+src/data/            tabella dei progetti (projects.ts)
+src/pages/           route
+src/layouts/         layout di pagine e post
+src/components/      componenti
+data/<progetto>/     risultati grezzi dei benchmark (jsonl, csv)
 scripts/             rigenerazione grafici dai dati grezzi
 public/              asset statici
 ```
 
+Da riallineare alla struttura effettiva della repo se Astro 7 usa percorsi diversi da `src/content/`.
+
 ## Comandi
 
-```
-npm run dev       # dev server
-npm run build     # build statica in dist/
-npm run preview   # anteprima della build
+Generatore statico: Astro 7 con TypeScript strict e Content Collections. Package manager: npm.
 
-# deploy: nginx serve /srv/apps/ml-notes/dist sul VPS Hetzner
+```
+npm install        # dipendenze
+npm run dev        # dev server su http://localhost:4321
+npm run build      # build statico in dist/
+npm run preview    # serve dist/ in locale
+npm run check      # typecheck di .astro e .ts
+```
+
+Deploy: build statica in `dist/`, poi rsync sul VPS Hetzner, dove nginx serve `/srv/apps/ml-notes/dist`.
+
+```
+npm run build
 rsync -av --delete dist/ root@188.245.201.81:/srv/apps/ml-notes/dist/
 ```
+
+Il dominio è `https://ml.martin-trajkovski.it`, gia impostato in `site` dentro `astro.config.mjs`: da li dipendono canonical, sitemap e feed RSS, quindi non si tocca piu ora che il sito è indicizzabile.
+
+## Cosa non si fa qui
+
+Questa repo resta aperta per tutto il percorso, ma dopo il deploy ci si torna solo per pubblicare. Rifare il tema o aggiungere funzionalità al sito mentre un progetto è in corso è procrastinazione travestita da lavoro.
