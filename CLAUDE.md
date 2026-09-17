@@ -46,6 +46,9 @@ Valgono in tutte le repo del percorso e sono descritte per esteso nel README:
 - Contratto `search(query_vector, k) -> [(id, score)]`.
 - Log esperimenti in `runs.jsonl`, una riga per run.
 - Mai metriche da run singolo su esperimenti con varianza.
+- Nomi di file e cartelle solo con lettere, numeri, `_`, `-` e `.`. Mai `: * ? " < > |`, mai spazi, mai un punto o uno spazio in fondo al nome.
+
+Il vincolo sui nomi nasce dal fisso: quei caratteri sono riservati su Win32/NTFS e git rifiuta di fare checkout dei path che li contengono, quindi la pull si ferma con `error: invalid path` e la repo resta indietro. Chi lavora su Mac non se ne accorge finche non tocca a Windows. Se le cartelle prendono il nome da un titolo (una lezione, un paper), il titolo va ripulito: i due punti si tolgono e basta, non si sostituiscono con altro. Aggiunta il 17-09-2026, dopo il rename delle cartelle `Zero-to-Hero/`.
 
 Se una convenzione cambia, si cambia qui e si annota la data. Non si riscrivono le repo chiuse per adeguarle.
 
