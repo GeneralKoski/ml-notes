@@ -107,11 +107,11 @@ npm run preview    # serve dist/ in locale
 npm run check      # typecheck di .astro e .ts
 ```
 
-Deploy: build statica in `dist/`, poi rsync sul VPS Hetzner, dove nginx serve `/srv/apps/ml-notes/dist`.
+Deploy: build statica in `dist/`, poi rsync su koski (il server di casa, via Tailscale), dove nginx serve `/srv/apps/ml-notes/dist`.
 
 ```
 npm run build
-rsync -av --delete dist/ root@188.245.201.81:/srv/apps/ml-notes/dist/
+rsync -av --delete dist/ root@koski:/srv/apps/ml-notes/dist/
 ```
 
 Il dominio è `https://ml.martin-trajkovski.it`, gia impostato in `site` dentro `astro.config.mjs`: da li dipendono canonical, sitemap e feed RSS, quindi non si tocca piu ora che il sito è indicizzabile.
