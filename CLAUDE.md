@@ -12,8 +12,8 @@ Sito statico piu indice dei progetti. Non contiene codice di machine learning: s
 
 | # | Repo | Progetto | Stato |
 |---|---|---|---|
-| 0 | (locale, privato) | Fondamenta: autograd e Transformer da zero | da fare |
-| 1 | `gpu-quant-bench` | Benchmark formati e quantizzazioni | da fare |
+| 0 | (locale, privato) | Fondamenta: autograd e Transformer da zero | in corso |
+| 1 | `gpu-quant-bench` | Benchmark formati e quantizzazioni | in corso |
 | 2 | `rustann` | Vector DB in Rust: HNSW piu PQ | da fare |
 | 3 | `crnn-ocr` | OCR da zero: CRNN piu CTC | da fare |
 | 4 | `codesearch` | Ricerca semantica sul codice | da fare |

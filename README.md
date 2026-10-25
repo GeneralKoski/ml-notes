@@ -8,8 +8,8 @@ Every project lives in its own repository and ends with a post here. Raw benchma
 
 | # | Repo | Project | Status | Post |
 |---|---|---|---|---|
-| 0 | (local, private) | Foundations: autograd and a Transformer from scratch | planned | - |
-| 1 | `gpu-quant-bench` | Format and quantization benchmark on an RTX 3060 | planned | - |
+| 0 | (local, private) | Foundations: autograd and a Transformer from scratch | in progress | - |
+| 1 | `gpu-quant-bench` | Format and quantization benchmark on an RTX 3060 | in progress | - |
 | 2 | `rustann` | Vector database in Rust: HNSW and Product Quantization | planned | - |
 | 3 | `crnn-ocr` | OCR from scratch: CRNN with CTC loss on synthetic data | planned | - |
 | 4 | `codesearch` | Semantic code search | planned | - |

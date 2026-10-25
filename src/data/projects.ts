@@ -7,8 +7,8 @@ export interface Project {
 }
 
 export const projects: Project[] = [
-  { n: '0', name: 'Foundations: autograd and a Transformer from scratch', status: 'planned', repo: 'foundations', post: '-' },
-  { n: '1', name: 'Format and quantization benchmark on an RTX 3060', status: 'planned', repo: 'gpu-quant-bench', post: '-' },
+  { n: '0', name: 'Foundations: autograd and a Transformer from scratch', status: 'in progress', repo: 'foundations', post: '-' },
+  { n: '1', name: 'Format and quantization benchmark on an RTX 3060', status: 'in progress', repo: 'gpu-quant-bench', post: '-' },
   { n: '2', name: 'Vector database in Rust: HNSW and Product Quantization', status: 'planned', repo: 'rustann', post: '-' },
   { n: '3', name: 'OCR from scratch: CRNN with CTC loss on synthetic data', status: 'planned', repo: 'crnn-ocr', post: '-' },
   { n: '4', name: 'Semantic code search', status: 'planned', repo: 'codesearch', post: '-' },
