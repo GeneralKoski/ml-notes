@@ -8,8 +8,8 @@ Every project lives in its own repository and ends with a post here. Raw benchma
 
 | # | Repo | Project | Status | Post |
 |---|---|---|---|---|
-| 0 | (local, private) | Foundations: autograd and a Transformer from scratch | in progress | - |
-| 1 | `gpu-quant-bench` | Format and quantization benchmark on an RTX 3060 | in progress | - |
+| 0 | (local, private) | Foundations: autograd and a Transformer from scratch | paused | - |
+| 1 | `gpu-quant-bench` | Format and quantization benchmark on an RTX 3060 | paused | - |
 | 2 | `rustann` | Vector database in Rust: HNSW and Product Quantization | planned | - |
 | 3 | `crnn-ocr` | OCR from scratch: CRNN with CTC loss on synthetic data | planned | - |
 | 4 | `codesearch` | Semantic code search | planned | - |
@@ -19,7 +19,7 @@ Every project lives in its own repository and ends with a post here. Raw benchma
 | 8 | `rl-from-scratch` | DQN, PPO and SAC from scratch, plus a study on seed variance | planned | - |
 | - | `mlkit` | Shared utilities. Created when needed, not before | - | - |
 
-Statuses: `planned`, `in progress`, `done`, `abandoned`. Abandoned projects stay in the table with the reason. One honest failure is worth more than a hidden one.
+Statuses: `planned`, `in progress`, `paused`, `done`, `abandoned`. Abandoned projects stay in the table with the reason. One honest failure is worth more than a hidden one.
 
 ## Dependencies between projects
 
